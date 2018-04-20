@@ -21,15 +21,15 @@ The following setup is working for me, other distributions and/or cameras may wo
 
 1) Set up a Raspberry Pi with Raspbian and connect to Wifi or plugin an ethernet cable.
 
-If you get stuck see the following guides provided by the Raspberry Pi Foundation.  
+ If you get stuck see the following guides provided by the Raspberry Pi Foundation.  
 
 - [Hardware Setup]( https://www.raspberrypi.org/learning/hardware-guide/)
 - [Software Setup](https://www.raspberrypi.org/learning/software-guide/)
- - [Installing Rasbian with Noobs](https://www.raspberrypi.org/learning/software-guide/quickstart/) (beginner friendly)
+  - [Installing Rasbian with Noobs](https://www.raspberrypi.org/learning/software-guide/quickstart/) (beginner friendly)
   - [Installing Rasbian Manually](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
 - [Connect to Wifi]()
- - [Using Graphical User Interface](https://www.raspberrypi.org/learning/software-guide/wifi/) (beginner friendly)
- - [Using Command Line](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md) (headless)
+  - [Using Graphical User Interface](https://www.raspberrypi.org/learning/software-guide/wifi/) (beginner friendly)
+  - [Using Command Line](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md) (headless)
 
 2) Connect a Pi Camera
 ([Official Getting Started Guide](https://www.raspberrypi.org/learning/getting-started-with-picamera/))
@@ -87,7 +87,7 @@ Make the script executable by running the following command in the terminal:
 Make sure to replace `/script/location` with where your script is being stored
 
 Now that the file can be executed with a cron open your cron file with the following command:
-` crontab -e`
+`crontab -e`
 
 To the bottom of this file add the following. You'll be able to customize how often the script runs as you like.
 
@@ -96,7 +96,7 @@ To the bottom of this file add the following. You'll be able to customize how of
 
 Again, remember to replace `/script/location` with your scripts location.
 
-For more on cron refer to [this guide](https://www.raspberrypi.org/documentation/linux/usage/cron.md)
+For more on `cron` refer to [this guide](https://www.raspberrypi.org/documentation/linux/usage/cron.md)
 
 ### Enjoy!
 10) That it, congratulations on setting up `weatherroof.py`.
