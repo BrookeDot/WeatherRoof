@@ -2,9 +2,9 @@
 
 ############################################################################
 #
-#	 WeatherRoof.py a Python Script which takes pictures using the Pi Camera
-#	 Version 3.1
-#	 Copyright (C) 2014-2018 Brooke Dukes ( brooke.codes/contact )
+#    WeatherRoof.py a Python Script which takes pictures using the Pi Camera
+#    Version 3.1
+#    Copyright (C) 2014-2018 Brooke Dukes ( brooke.codes/contact )
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ use_remove_file = True
 
 # ----  S3 Upload function ---- #
 def s3_upload( file ):
-	# Import aws lib (boto) and timedelta for our experation
+	# Import aws lib (boto) and timedelta for our expiration
 	import boto3
 
 	# Connect to S3
@@ -76,9 +76,9 @@ def s3_upload( file ):
     aws_secret_access_key=s3_secret_access_key,
 )
 	# Upload time-stamped file
-	s3.Object( s3_bucket_name, filename ).put( ACL='public-read', Body=open(filedir + filename , 'rb' ), StorageClass='REDUCED_REDUNDANCY', CacheControl='max-age=2592000' )
+	s3.Object( s3_bucket_name, filename ).put( ACL='public-read', Body=open(filedir + filename , 'rb' ), StorageClass='REDUCED_REDUNDANCY', CacheControl='max-age=2592000', ContentType='image/jpeg' )
 	# Upload latest.jpg to be used on the site itself
-	s3.Object( s3_bucket_name, 'latest.jpg' ).put( ACL='public-read', Body=open(filedir + filename , 'rb' ), StorageClass='REDUCED_REDUNDANCY', CacheControl='max-age=0' )
+	s3.Object( s3_bucket_name, 'latest.jpg' ).put( ACL='public-read', Body=open(filedir + filename , 'rb' ), StorageClass='REDUCED_REDUNDANCY', CacheControl='max-age=0', ContentType='image/jpeg' )
 
 	return
 
