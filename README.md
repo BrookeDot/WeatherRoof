@@ -146,13 +146,13 @@ This script was developed for my specific use case. I hope others find it useful
 *V3.2 2019-03-30*
 
  - Visiting an S3 link should now show the file in the browser instead of as a download due to the addition of `ContentType` headers.
- - Setting an ISO and checking the gain should result in fewer washed out images and more consistency overall. See the [piCamera docs](https://picamera.readthedocs.io/en/release-1.13/recipes1.html?highlight=brightness#capturing-consistent-images)for more.
+ - Setting an ISO and checking the gain should result in fewer washed out images and more consistency overall. See the [piCamera docs](https://picamera.readthedocs.io/en/release-1.13/recipes1.html?highlight=brightness#capturing-consistent-images) for more.
 
 *V3.1 2018-04-19*
 
  - First public release.
  - Adding this `README.md` file to help get people started.
- - Removed FTP Stuff, it wasn't tested since V1 (from 2014) and I have no intrest in supporting vanilla FTP. This may come back at a later date as SFTP.
+ - Removed FTP Stuff, it wasn't tested since V1 (from 2014) and I have no interest in supporting vanilla FTP. This may come back at a later date as SFTP.
 
 *V3 2017-10-01*
 
