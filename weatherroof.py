@@ -3,7 +3,7 @@
 ############################################################################
 #
 #    WeatherRoof.py a Python Script which takes pictures using the Pi Camera
-#    Version 3.1
+#    Version 3.2
 #    Copyright (C) 2014-2018 Brooke Dukes ( brooke.codes/contact )
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -23,6 +23,7 @@
 
 import picamera as cam
 import datetime
+from time import sleep
 
 date = datetime.datetime.now()
 
@@ -91,11 +92,24 @@ def capture_image():
 	# Flip image over as camera is upside down (:
 	camera.vflip = True
 
-	# Set camera brightness
-	# camera.brightness = 40
-
 	# Set meter mode
 	camera.meter_mode = 'matrix'
+
+	# Try to get consistent images
+	# https://picamera.readthedocs.io/en/release-1.13/recipes1.html?highlight=brightness#capturing-consistent-images
+
+	# Set ISO
+	camera.iso = 100
+
+	# Wait for the automatic gain control to settle
+	sleep(2)
+
+	# Now fix the values
+	camera.shutter_speed = camera.exposure_speed
+	camera.exposure_mode = 'off'
+	gain = camera.awb_gains
+	camera.awb_mode = 'off'
+	camera.awb_gains = gain
 
 	# Set camera resolution
 	camera.resolution = ( image_width, image_height )
