@@ -23,16 +23,16 @@ The following setup is working for me, other distributions and/or cameras may wo
 
  If you get stuck see the following guides provided by the Raspberry Pi Foundation.  
 
-- [Hardware Setup]( https://www.raspberrypi.org/learning/hardware-guide/)
-- [Software Setup](https://www.raspberrypi.org/learning/software-guide/)
-  - [Installing Rasbian with Noobs](https://www.raspberrypi.org/learning/software-guide/quickstart/) (beginner friendly)
-  - [Installing Rasbian Manually](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
-- [Connect to Wifi]()
-  - [Using Graphical User Interface](https://www.raspberrypi.org/learning/software-guide/wifi/) (beginner friendly)
+- [Hardware Setup](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3)
+- [Software Setup](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/2)
+  - [Installing Raspberry Pi OS with Noobs](https://www.raspberrypi.com/software/) (beginner friendly)
+  - [Installing Raspberry Pi OS Manually](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
+- Connect to Wifi
+  - [Using Graphical User Interface](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/4) (beginner friendly)
   - [Using Command Line](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md) (headless)
 
 2) Connect a Pi Camera
-([Official Getting Started Guide](https://www.raspberrypi.org/learning/getting-started-with-picamera/))
+([Official Getting Started Guide](https://projects.raspberrypi.org/en/projects/getting-started-with-picamera))
 
 ### Install Software and Libraries
 3) Open the Terminal and run the following command to make sure you have the required Python packages.
@@ -45,12 +45,12 @@ The following setup is working for me, other distributions and/or cameras may wo
 
 5) Install optional libraries.
 
-If you plan to upload to Amazon S3 you'll need to install the `boto3` which handles all the heavy lifting to Amazon Web Services with this command. `pip3 install boto3`
+If you plan to upload to Amazon S3 (or S3 compatible storage) you'll need to install the `boto3` which handles all the heavy lifting to Amazon Web Services with this command. `pip3 install boto3`
 
 To use the daylight feature  which allows you to stop taking pictures at night you'll need `astral` which also requires the `requests` package. This library uses your location for real time dawn/dusk detection.
 `pip3 install astral requests`
 
-To install both enter the following command:
+To install both Boto and Astral enter the following command:
 `pip3 install boto3 astral requests`
 
 ### Add and Configure `Weatherroof.py`
@@ -62,9 +62,9 @@ Alternatively, download the `zip` file from GitHub and extract it onto your SD c
 
 For more advanced usage and easier upgrades you may use Git to clone the repository using the `git clone` command. If you're new to Git check out [this guide](https://projects.raspberrypi.org/en/projects/getting-started-with-git).
 
-To install `git` use the following command ` apt-get install git`
+To install `git` use the following command `apt-get install git`
 
-To clone the repository use `git clone https://github.com/BandonRandon/weatherroof.git`
+To clone the repository use `git clone https://github.com/BrookeDot/weatherroof.git`
 
 7) Once you have the files saved locally navigate to them. Open `weatherroof.py` and edit the configuration options from just below the `Start Config` tag and ending at `End Config` as appropriate.
 
@@ -76,7 +76,7 @@ Once in the main folder run
 
 If things are setup correctly this will take a picture and upload it to the location(s) of your choice.
 
-**Important**: for the initial test it's recommend to keep `use_remove_file = False` allowing the file to be saved locally. Otherwise the file will be deleted after creation.
+**Important**: for the initial test it is recommend to keep `use_remove_file = False` allowing the file to be saved locally. Otherwise the file will be deleted after creation.
 
 ### Automatically Capture Images
 9) To have pictures taken at a regular interval set up a `cron job`. Alternatively, you could also use a loop within `weatherroof.py`.
@@ -99,7 +99,7 @@ Again, remember to replace `/script/location` with your scripts location.
 For more on `cron` refer to [this guide](https://www.raspberrypi.org/documentation/linux/usage/cron.md)
 
 ### Enjoy!
-10) That it, congratulations on setting up `weatherroof.py`.
+10) That's it, congratulations on setting up `weatherroof.py`.
 
 ## Configuration
 The `weatherrof.py` script is filled with inline comments to explain any settings. If anything is unclear please open an issue on GitHub and I'll take a look. Here are a few notes.
@@ -109,11 +109,9 @@ The `weatherrof.py` script is filled with inline comments to explain any setting
 **Camera Settings** (`capture_image()`)  
 You may need to adjust this function based on your needs. See the [Camera Library documentation](http://picamera.readthedocs.io/en/release-1.13/) for acceptable parameters specifically the [API Documentation](http://picamera.readthedocs.io/en/release-1.13/api_camera.html)
 
-**Amazon S3**
+**Amazon S3 (or compatible) **
 
 - By default two images will be added each time the script is ran. The first being a unique timestamped version of the file and a second `latest.jpg` which will be replaced. This allows a website to always show the latest image by calling `bucket/latest.jpg`. If you have changed `filename` to be a static variable you may remove the `latest.jpg` part of the script.
-
-- Files uploaded will be public and have a [StorageClass](https://aws.amazon.com/s3/storage-classes/) of `REDUCED REDUNDANCY`.
 
 - Timestamped files will have a caching header of 30 days (2592000 seconds) and `latest.jpg` will have no caching headers added and will expire right away.
 
@@ -142,6 +140,11 @@ This script was developed for my specific use case. I hope others find it useful
 
 
 # Changelog
+
+V3.3 2019-12-21
+
+- Add support for s3_endpoint to allow third party S3 clients
+- Remove Storage Class
 
 *V3.2 2019-03-30*
 
