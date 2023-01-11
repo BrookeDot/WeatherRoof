@@ -2,9 +2,9 @@
 
 ############################################################################
 #
-#    WeatherRoof.py a Python Script which takes pictures using the Pi Camera
-#    Version 3.2
-#    Copyright (C) 2014-2018 Brooke Dukes ( brooke.codes/contact )
+#    weatherroof.py a Python Script which takes pictures using the Pi Camera
+#    Version 3.3
+#    Copyright (C) 2014-2019 Brooke. ( brooke.codes/contact )
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -57,6 +57,9 @@ s3_bucket_name = 's3.bucket.name'
 s3_access_key = 'S3_KEY_GOES_HERE'
 # Secret access key associated with above key
 s3_secret_access_key = 'S3_SECRET_HERE'
+# Endpoint for boto
+s3_endpoint = 'S3.EXAMPLE.COM'
+
 
 # ------- File deletion setup (require os) ------- #
 # ---- If True removes image from local disk ---- #
@@ -67,21 +70,29 @@ use_remove_file = True
 
 # ----  S3 Upload function ---- #
 def s3_upload( file ):
-	# Import aws lib (boto) and timedelta for our expiration
+	# Import aws lib (boto) and timedelta for our experation
 	import boto3
 
 	# Connect to S3
-	s3 = boto3.resource(
-    's3',
-    aws_access_key_id=s3_access_key,
-    aws_secret_access_key=s3_secret_access_key,
-)
+	s3 = boto3.resource( 's3',
+	                      aws_access_key_id = s3_access_key,
+	                      aws_secret_access_key = s3_secret_access_key,
+	                      endpoint_url = s3_endpoint,
+	                   )
 	# Upload time-stamped file
-	s3.Object( s3_bucket_name, filename ).put( ACL='public-read', Body=open(filedir + filename , 'rb' ), StorageClass='REDUCED_REDUNDANCY', CacheControl='max-age=2592000', ContentType='image/jpeg' )
+	s3.Object( s3_bucket_name, filename ).put( ACL  = 'public-read',
+	                                           Body = open( filedir + filename , 'rb' ),
+	                                           CacheControl = 'max-age=2592000',
+	                                           ContentType  = 'image/jpeg'
+ 	                                         )
 	# Upload latest.jpg to be used on the site itself
-	s3.Object( s3_bucket_name, 'latest.jpg' ).put( ACL='public-read', Body=open(filedir + filename , 'rb' ), StorageClass='REDUCED_REDUNDANCY', CacheControl='max-age=0', ContentType='image/jpeg' )
-
+	s3.Object( s3_bucket_name, 'latest.jpg' ).put( ACL  = 'public-read',
+	                                               Body = open( filedir + filename , 'rb' ),
+	                                               CacheControl='max-age=0',
+ 	                                               ContentType  = 'image/jpeg'
+ 	                                             )
 	return
+
 
 # ---- Capture image function ---- #
 def capture_image():
